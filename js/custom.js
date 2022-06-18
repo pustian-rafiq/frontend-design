@@ -1,39 +1,54 @@
-const move = () => {
-    var box = document.getElementById("boxItem")
-   
-    const top=50;
-    const left =0;
-    const leftPos = left;
-    const topPos = top;
-    const initialBoxHeight = 100;
-    const initialBoxWidth = 100;
-    const anim = setInterval(moveRightDown, 1000);
+  
 
-  const moveRightDown = () => {
+// Create a move function that moves the box
 
-       const winScreenWidth =  screen.innerWidth 
-       const winScreenHeight =  screen.innerWidth 
+  const move = () => {
+        var box = document.getElementById("boxItem")
+       
+        var topPosition=50;
+        var leftPosition =0
 
-         if(left >= (winScreenWidth - 110) || top > (winScreenHeight - 220)){
+        //Call a function that move the box to bottom and right per second
+        var rightDown = setInterval( () => {
+ 
+        //Take screen inner width and height
+           const innerScreenWidth =  window.innerWidth 
+           const innerScreenHeight =  window.innerHeight 
+ 
+             if( leftPosition >= (innerScreenWidth - 110) || topPosition > (innerScreenHeight - 110)){
 
-             const up = setInterval(moveLeftTop,1000)
+                /*
+                When the box reach at the bottom or right edge of the screen,
+                then call another function to move backward from that position
+                */
 
-             function moveLeftTop(){
+                 const leftTop = setInterval( () => {
 
-                if(top <= 50 || left <= 0){
-                    clearInterval(up)
-                }
-                top  = top - 10;
-                left =  left - 10
-                box.style.top = top+"px";
-                box.style.left = left+"px";
+                    if(topPosition <= 50 || leftPosition <= 0){
+                        //when the box reach initial position, then we clear the moveLeftTop and starts moving again
+                        clearInterval(leftTop)
+                    }
+                    topPosition  = topPosition - 10;
+                    leftPosition =  leftPosition - 10
+                    box.style.top = topPosition+"px";
+                    box.style.left = leftPosition+"px";
+                 },1000)
+
+                 
+
+             }else{
+
+                topPosition  = topPosition + 10;
+                 leftPosition =  leftPosition+10;
+                 box.style.top = topPosition+"px";
+                 box.style.left = leftPosition+"px";
              }
+        }, 1000);
 
-         }else{
-             top  = top + 10;
-             left =  left+10;
-             box.style.top = top+"px";
-             box.style.left = left+"px";
-         }
-     }
-}
+    } 
+    
+  // Call the move function after loading the page
+   setTimeout(()=> {
+    move()
+   },1000)
+  
