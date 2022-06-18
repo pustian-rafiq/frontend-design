@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Testing Code</title>
+</head>
+<body>
+    <div class="container">
+        <div class="box" id="boxItem">
+
+        </div>
+    </div>
+
+<!-- <script src="js/custom.js"></script> -->
+<script>
+   
+    const move = () => {
+        var box = document.getElementById("boxItem")
+       
+        var topPosition=50;
+        var leftPosition =0
+        var rightDown = setInterval(moveRightDown, 1000);
+
+      function moveRightDown(){
+ 
+        //Take screen inner width and height
+           const innerScreenWidth =  window.innerWidth 
+           const innerScreenHeight =  window.innerHeight 
+ 
+             if( leftPosition >= (innerScreenWidth - 110) || topPosition > (innerScreenHeight - 110)){
+
+                 const leftTop = setInterval(moveLeftTop,1000)
+
+                 function moveLeftTop(){
+
+                    if(topPosition <= 50 || leftPosition <= 0){
+                        //when the box reach initial position, then we clear the moveLeftTop and starts moving again
+                        clearInterval(leftTop)
+                    }
+                    topPosition  = topPosition - 10;
+                    leftPosition =  leftPosition - 10
+                    box.style.top = topPosition+"px";
+                    box.style.left = leftPosition+"px";
+                 }
+
+             }else{
+
+                topPosition  = topPosition + 10;
+                 leftPosition =  leftPosition+10;
+                 box.style.top = topPosition+"px";
+                 box.style.left = leftPosition+"px";
+             }
+         }
+    }
+    
+  
+   setTimeout(()=> {
+    move()
+   },1000)
+  
+</script>
+</body>
+</html>
